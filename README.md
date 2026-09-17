@@ -67,6 +67,8 @@ Promote the worktree as a commit on your branch, open a draft PR, or
 fast-forward your local branch. Branch preview starts the worktree's dev
 server for a look first. PR and CI status sit on the card while you wait.
 
+![A board with eight agents running at once: the card in Review shows its diff stat and CI status while a reviewer reads it, and the cards in Done carry their PR pills](assets/board-shipping.png)
+
 ### Autopilot (beta)
 
 Pick a sprint, how many cards run in parallel, how many fix rounds each gets,
