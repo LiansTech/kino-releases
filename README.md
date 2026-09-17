@@ -1,24 +1,24 @@
 # Kino
 
 **The agentic workflow platform that lets one person ship a whole sprint.**
-Built for agent-native companies — teams where the humans plan and review,
+Built for agent-native companies: teams where the humans plan and review,
 and coding agents do the work.
 
 ![A Kino board mid-sprint: three agent runs streaming tool calls, one card waiting for approval before work starts, one finished and asking whether to ship or run a reviewer](assets/releases/board.png)
 
 Kino is a desktop app. Point it at a git repository and it gives you a kanban
-board where every card can be handed to a coding agent — Claude Code, Codex,
+board where every card can be handed to a coding agent (Claude Code, Codex,
 Gemini, Cursor, Copilot, Amp, OpenCode, Droid, CCR, Qwen, or any
-ACP-compatible CLI — each run isolated in its own git worktree, many at
+ACP-compatible CLI), each run isolated in its own git worktree, many at
 once. Plan the sprint with an agent, dispatch the cards, let a second agent
 review the work, ship it. Or turn on autopilot and have the sprint run itself
 in dependency order while you sleep.
 
 Free to use. This repo hosts the downloads; the source is not public.
 
-**[Download the latest build →](../../releases/latest)** — macOS (Apple
-Silicon and Intel), Windows, Linux. Builds are unsigned; see
-[First launch](#first-launch--read-this) for the one-time step.
+**[Download the latest build →](../../releases/latest)** for macOS (Apple
+Silicon and Intel), Windows and Linux. Builds are unsigned; see
+[First launch](#first-launch-read-this) for the one-time step.
 
 ## The workflow
 
@@ -28,8 +28,9 @@ Open **Plan sprint**, describe the sprint to a planner agent, and watch the
 task list build as you talk: each task gets a body, a reasoning effort, a
 model hint, and its dependencies. When the planner needs a call from you it
 asks, with a recommended option. Submit publishes the whole plan in one
-transaction and lands you on the **order graph**, laid out in waves — wave 0
-is ready now, everything behind it is blocked until its predecessors land.
+transaction and lands you on the **order graph**, laid out in waves. Wave 0
+is ready now, and everything behind it is blocked until its predecessors
+land.
 
 ![The order graph right after planning: twelve tasks in four waves, five ready to dispatch, dependency edges drawn between the cards](assets/releases/order-graph.png)
 
@@ -44,15 +45,15 @@ per-run budget.
 ![A running card's thread: the agent's Read and Bash calls streaming in, with model, elapsed time and cost in the run panel on the right](assets/releases/run-thread.png)
 
 When the agent needs a decision, the run pauses and the options appear on
-the card itself — click one, it continues. Create a card with **Spec first**
-and the same gate holds it before any work starts: approve as written,
-refine the spec, or investigate the codebase first.
+the card itself. Click one and it continues. Create a card with **Spec
+first** and the same gate holds it before any work starts: approve as
+written, refine the spec, or investigate the codebase first.
 
 ### Review
 
 A finished run doesn't move to Done on its own. The card asks: **Ship**, or
-**Run reviewer**. A reviewer run — always on a different model tier than the
-author — reads the diff and files findings against the card. **Fix with
+**Run reviewer**. A reviewer run, always on a different model tier than the
+author, reads the diff and files findings against the card. **Fix with
 agent** dispatches a fix run stamped with those findings; findings whose
 lines the fix rewrote are closed automatically, the rest get a cheap
 verification pass. Turn on auto-review and every completed run gets this
@@ -63,7 +64,7 @@ without a click.
 ### Ship
 
 Promote the worktree as a commit on your branch, open a draft PR, or
-**Merge** — push, un-draft, merge with the repo's own merge method, and
+**Merge**: push, un-draft, merge with the repo's own merge method, and
 fast-forward your local branch. Branch preview starts the worktree's dev
 server for a look first. PR and CI status sit on the card while you wait.
 
@@ -76,9 +77,9 @@ and a landing mode, then walk away. The session dispatches ready cards as
 their blockers close, runs the review → fix loop on each, auto-answers
 decisions that have a single recommended option, and lands the card: either
 open PRs stacked on unmerged predecessors, or **merge when checks are
-green** — push, poll CI, merge. Anything that can't be landed cleanly is held
-for you rather than forced through. A per-session budget (Settings → Tweaks)
-stops it cold.
+green**, which pushes, polls CI and merges. Anything that can't be landed
+cleanly is held for you rather than forced through. A per-session budget
+(Settings → Tweaks) stops it cold.
 
 ![The Start an autopilot modal: sprint s19, per-card models, two cards in parallel, up to two fix rounds, landing as open PRs](assets/releases/autopilot-launch.png)
 
@@ -105,15 +106,15 @@ guess, and a reviewer has something to check against.
   verification.
 - **Containment.** Every tool call is checked against the worktree root;
   edits outside it are logged or pause the run for your decision.
-- **Cost budgets** per run and per autopilot session — a run that crosses
+- **Cost budgets** per run and per autopilot session. A run that crosses
   its cap is stopped.
 - **MCP server.** `kino-mcp-server` exposes the board over Model Context
   Protocol, so Cursor, Claude Desktop, or the Claude Code CLI can read and
   write cards.
-- **Chat rail.** Talk to an agent about the board itself — plan, split,
-  archive, open a PR for a card — with personas you define.
-- **Notifications** — an in-app toast when a Kino window is focused, an OS
-  notification when it isn't — for run outcomes, decisions, PRs, updates,
+- **Chat rail.** Talk to an agent about the board itself (plan, split,
+  archive, open a PR for a card) with personas you define.
+- **Notifications.** An in-app toast when a Kino window is focused, an OS
+  notification when it isn't, for run outcomes, decisions, PRs, updates,
   and usage warnings.
 
 ## Download
@@ -128,7 +129,7 @@ Latest build: **[releases/latest](../../releases/latest)**
 | Linux x64           | `kino-<version>-linux-x64.AppImage` |
 | Linux x64           | `kino-<version>-linux-x64.tar.xz`   |
 
-## First launch — read this
+## First launch: read this
 
 Builds are **not code-signed** (certificates are a recurring cost this project
 does not carry yet). Your OS will object the first time, once:
@@ -137,7 +138,7 @@ does not carry yet). Your OS will object the first time, once:
 
 Drag `Kino.app` to `/Applications`, then:
 
-- **macOS 15 and newer** — you'll see _"Kino is damaged and can't be opened.
+- **macOS 15 and newer:** you'll see _"Kino is damaged and can't be opened.
   You should move it to the Trash."_ It is not damaged; that is the wording
   macOS uses for unsigned apps now, and right-click → Open does **not** get
   past it. Clear the quarantine flag:
@@ -148,7 +149,7 @@ Drag `Kino.app` to `/Applications`, then:
 
   Then open it normally.
 
-- **macOS 14 and older** — you'll see _"Apple cannot check it for malicious
+- **macOS 14 and older:** you'll see _"Apple cannot check it for malicious
   software."_ Right-click the app, choose **Open**, then **Open** again.
 
 ### Windows
@@ -165,7 +166,7 @@ You only go through this once per machine.
 
 ## What you need
 
-Kino doesn't sign you in to anything — it calls the agent CLIs already on
+Kino doesn't sign you in to anything. It calls the agent CLIs already on
 your `PATH`, reusing whatever auth they have. Install **at least one**:
 
 | Agent              | CLI            | Sign in                 |
@@ -187,14 +188,14 @@ drive real GitHub Issues, open PRs, or merge for you.
 ## First run
 
 Pick any folder containing a git repository. Kino creates a `.kino/`
-directory inside it — SQLite database, config, per-run worktrees — and drops
+directory inside it (SQLite database, config, per-run worktrees) and drops
 you on the board. Nothing is written outside that directory.
 
-A fresh install opens on a short setup checklist. Only the first step — an
-agent CLI on your `PATH` — gates the board; everything else can wait and
+A fresh install opens on a short setup checklist. Only the first step, an
+agent CLI on your `PATH`, gates the board. Everything else can wait and
 lives in Settings.
 
-<p align="center"><img src="assets/releases/setup-checklist.png" width="620" alt="The Set up Kino checklist: connect an agent CLI (required), default model, GitHub, house rules, chat personas, skills — each ticking off as it is configured"></p>
+<p align="center"><img src="assets/releases/setup-checklist.png" width="620" alt="The Set up Kino checklist: connect an agent CLI (required), default model, GitHub, house rules, chat personas, skills. Each ticks off as it is configured"></p>
 
 Your data is local. There is no account and no server.
 
@@ -204,11 +205,10 @@ Kino checks for updates automatically and lets you know two ways: a toast
 in the app, and a **Check for updates** entry in the account menu
 (bottom-left).
 
-- **macOS (signed), Windows, Linux AppImage** — the update downloads in
+- **macOS (signed), Windows, Linux AppImage:** the update downloads in
   the background and installs the next time you quit. The toast says
-  "Update ready — restart to update"; click it (or the account menu
-  entry) to restart now.
-- **macOS (unsigned), Linux tar.xz** — the app can see a new version but
+  "Update ready"; click it (or the account menu entry) to restart now.
+- **macOS (unsigned), Linux tar.xz:** the app can see a new version but
   can't install it in place. The toast says "Update available"; click it
   to open this releases page and download the new build the same way you
   got this one.
@@ -225,7 +225,7 @@ spawn processes on your machine. Kino puts fences around that:
 - A pre-push hook in every worktree stops agents pushing on their own.
 - Containment mode watches for edits outside the worktree.
 - Cost budgets stop runaway runs and sessions.
-- Landing on a real branch — commit, PR, or merge — is always an explicit
+- Landing on a real branch (commit, PR, or merge) is always an explicit
   click, or an autopilot landing mode you chose when you started the
   session.
 
