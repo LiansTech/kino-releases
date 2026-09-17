@@ -4,6 +4,8 @@
 Built for agent-native companies — teams where the humans plan and review,
 and coding agents do the work.
 
+![A Kino board mid-sprint: three agent runs streaming tool calls, one card waiting for approval before work starts, one finished and asking whether to ship or run a reviewer](assets/board.png)
+
 Kino is a desktop app. Point it at a git repository and it gives you a kanban
 board where every card can be handed to a coding agent — Claude Code, Codex,
 Gemini, Cursor, Copilot, Amp, OpenCode, Droid, CCR, Qwen, or any
@@ -14,40 +16,80 @@ in dependency order while you sleep.
 
 Free to use. This repo hosts the downloads; the source is not public.
 
+**[Download the latest build →](../../releases/latest)** — macOS (Apple
+Silicon and Intel), Windows, Linux. Builds are unsigned; see
+[First launch](#first-launch--read-this) for the one-time step.
+
 ## The workflow
 
-**Plan.** Open the plan modal, describe the sprint to a planner agent, and
-watch the task list build as you talk: each task gets a body, a reasoning
-effort, a model hint, and its dependencies. Submit publishes the whole plan
-in one transaction and lands you on the order graph, laid out in waves.
+### Plan
 
-**Dispatch.** Click Dispatch on a card (or select several). Kino creates a
-worktree off your target branch, launches the agent CLI against it, and
-streams every tool call into the card's thread. When the agent needs a
-decision, the run pauses and the options pop up in the UI — click one, it
-continues. Model and reasoning effort come from the card's labels; costs are
-tracked per run.
+Open **Plan sprint**, describe the sprint to a planner agent, and watch the
+task list build as you talk: each task gets a body, a reasoning effort, a
+model hint, and its dependencies. When the planner needs a call from you it
+asks, with a recommended option. Submit publishes the whole plan in one
+transaction and lands you on the **order graph**, laid out in waves — wave 0
+is ready now, everything behind it is blocked until its predecessors land.
 
-**Review.** A separate reviewer run — always on a different model tier than
-the author — reads the diff and files findings against the card. **Fix with
+![The order graph right after planning: twelve tasks in four waves, five ready to dispatch, dependency edges drawn between the cards](assets/order-graph.png)
+
+### Dispatch
+
+Click Dispatch on a card (or select several). Kino creates a worktree off
+your target branch, launches the agent CLI against it, and streams every tool
+call into the card's thread. Model and reasoning effort come from the card's
+labels; elapsed time, tokens and cost tick up in the run panel against the
+per-run budget.
+
+![A running card's thread: the agent's Read and Bash calls streaming in, with model, elapsed time and cost in the run panel on the right](assets/run-thread.png)
+
+When the agent needs a decision, the run pauses and the options appear on
+the card itself — click one, it continues. Create a card with **Spec first**
+and the same gate holds it before any work starts: approve as written,
+refine the spec, or investigate the codebase first.
+
+### Review
+
+A finished run doesn't move to Done on its own. The card asks: **Ship**, or
+**Run reviewer**. A reviewer run — always on a different model tier than the
+author — reads the diff and files findings against the card. **Fix with
 agent** dispatches a fix run stamped with those findings; findings whose
 lines the fix rewrote are closed automatically, the rest get a cheap
 verification pass. Turn on auto-review and every completed run gets this
 without a click.
 
-**Ship.** Promote the worktree as a commit on your branch, open a draft PR,
-or **Merge** — push, un-draft, merge with the repo's own merge method, and
-fast-forward your local branch. Branch preview starts the worktree's dev
-server for a look first.
+<p align="center"><img src="assets/card-review-gate.png" width="440" alt="A card whose run just finished: the diff stat and CI status in the footer, and a prompt asking whether to ship or run a reviewer"></p>
 
-**Autopilot.** Pick a sprint label, a parallelism (1–4), a landing mode and
-a budget, then walk away. The session dispatches ready cards as their
-blockers close, runs the review → fix loop on each (up to `maxFixRounds`),
-auto-answers decisions that have a single recommended option, and lands the
-card: either open PRs stacked on unmerged predecessors, or
-**merge-when-green** — push, poll checks, merge on green. Anything that
-can't be landed cleanly is held for you rather than forced through. Cards a
-session touched carry an AUTOPILOT badge afterwards.
+### Ship
+
+Promote the worktree as a commit on your branch, open a draft PR, or
+**Merge** — push, un-draft, merge with the repo's own merge method, and
+fast-forward your local branch. Branch preview starts the worktree's dev
+server for a look first. PR and CI status sit on the card while you wait.
+
+### Autopilot (beta)
+
+Pick a sprint, how many cards run in parallel, how many fix rounds each gets,
+and a landing mode, then walk away. The session dispatches ready cards as
+their blockers close, runs the review → fix loop on each, auto-answers
+decisions that have a single recommended option, and lands the card: either
+open PRs stacked on unmerged predecessors, or **merge when checks are
+green** — push, poll CI, merge. Anything that can't be landed cleanly is held
+for you rather than forced through. A per-session budget (Settings → Tweaks)
+stops it cold.
+
+![The Start an autopilot modal: sprint s19, per-card models, two cards in parallel, up to two fix rounds, landing as open PRs](assets/autopilot-launch.png)
+
+![The board a minute into an autopilot session: cards carrying the AUTOPILOT badge running in parallel, one in review, two already landed in Done](assets/autopilot-board.png)
+
+## Cards are specs, not sticky notes
+
+Every card carries a body an agent can act on: what to do, how to reproduce
+it, how to verify it. The planner writes them that way; the New task modal
+nudges you to. An agent that starts from a card like this doesn't have to
+guess, and a reviewer has something to check against.
+
+![A card's overview tab: repro steps, expected vs actual, and a verification checklist, with the live run's model, elapsed time and cost in the side panel](assets/task-spec.png)
 
 ## Everything else on the board
 
@@ -66,6 +108,8 @@ session touched carry an AUTOPILOT badge afterwards.
 - **MCP server.** `kino-mcp-server` exposes the board over Model Context
   Protocol, so Cursor, Claude Desktop, or the Claude Code CLI can read and
   write cards.
+- **Chat rail.** Talk to an agent about the board itself — plan, split,
+  archive, open a PR for a card — with personas you define.
 - **Notifications** — an in-app toast when a Kino window is focused, an OS
   notification when it isn't — for run outcomes, decisions, PRs, updates,
   and usage warnings.
@@ -143,6 +187,12 @@ drive real GitHub Issues, open PRs, or merge for you.
 Pick any folder containing a git repository. Kino creates a `.kino/`
 directory inside it — SQLite database, config, per-run worktrees — and drops
 you on the board. Nothing is written outside that directory.
+
+A fresh install opens on a short setup checklist. Only the first step — an
+agent CLI on your `PATH` — gates the board; everything else can wait and
+lives in Settings.
+
+<p align="center"><img src="assets/setup-checklist.png" width="620" alt="The Set up Kino checklist: connect an agent CLI (required), default model, GitHub, house rules, chat personas, skills — each ticking off as it is configured"></p>
 
 Your data is local. There is no account and no server.
 
