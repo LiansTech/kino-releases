@@ -4,7 +4,7 @@
 Built for agent-native companies — teams where the humans plan and review,
 and coding agents do the work.
 
-![A Kino board mid-sprint: three agent runs streaming tool calls, one card waiting for approval before work starts, one finished and asking whether to ship or run a reviewer](assets/board.png)
+![A Kino board mid-sprint: three agent runs streaming tool calls, one card waiting for approval before work starts, one finished and asking whether to ship or run a reviewer](assets/releases/board.png)
 
 Kino is a desktop app. Point it at a git repository and it gives you a kanban
 board where every card can be handed to a coding agent — Claude Code, Codex,
@@ -31,7 +31,7 @@ asks, with a recommended option. Submit publishes the whole plan in one
 transaction and lands you on the **order graph**, laid out in waves — wave 0
 is ready now, everything behind it is blocked until its predecessors land.
 
-![The order graph right after planning: twelve tasks in four waves, five ready to dispatch, dependency edges drawn between the cards](assets/order-graph.png)
+![The order graph right after planning: twelve tasks in four waves, five ready to dispatch, dependency edges drawn between the cards](assets/releases/order-graph.png)
 
 ### Dispatch
 
@@ -41,7 +41,7 @@ call into the card's thread. Model and reasoning effort come from the card's
 labels; elapsed time, tokens and cost tick up in the run panel against the
 per-run budget.
 
-![A running card's thread: the agent's Read and Bash calls streaming in, with model, elapsed time and cost in the run panel on the right](assets/run-thread.png)
+![A running card's thread: the agent's Read and Bash calls streaming in, with model, elapsed time and cost in the run panel on the right](assets/releases/run-thread.png)
 
 When the agent needs a decision, the run pauses and the options appear on
 the card itself — click one, it continues. Create a card with **Spec first**
@@ -58,7 +58,7 @@ lines the fix rewrote are closed automatically, the rest get a cheap
 verification pass. Turn on auto-review and every completed run gets this
 without a click.
 
-<p align="center"><img src="assets/card-review-gate.png" width="440" alt="A card whose run just finished: the diff stat and CI status in the footer, and a prompt asking whether to ship or run a reviewer"></p>
+<p align="center"><img src="assets/releases/card-review-gate.png" width="440" alt="A card whose run just finished: the diff stat and CI status in the footer, and a prompt asking whether to ship or run a reviewer"></p>
 
 ### Ship
 
@@ -67,7 +67,7 @@ Promote the worktree as a commit on your branch, open a draft PR, or
 fast-forward your local branch. Branch preview starts the worktree's dev
 server for a look first. PR and CI status sit on the card while you wait.
 
-![A board with eight agents running at once: the card in Review shows its diff stat and CI status while a reviewer reads it, and the cards in Done carry their PR pills](assets/board-shipping.png)
+![A board with eight agents running at once: the card in Review shows its diff stat and CI status while a reviewer reads it, and the cards in Done carry their PR pills](assets/releases/board-shipping.png)
 
 ### Autopilot (beta)
 
@@ -80,9 +80,9 @@ green** — push, poll CI, merge. Anything that can't be landed cleanly is held
 for you rather than forced through. A per-session budget (Settings → Tweaks)
 stops it cold.
 
-![The Start an autopilot modal: sprint s19, per-card models, two cards in parallel, up to two fix rounds, landing as open PRs](assets/autopilot-launch.png)
+![The Start an autopilot modal: sprint s19, per-card models, two cards in parallel, up to two fix rounds, landing as open PRs](assets/releases/autopilot-launch.png)
 
-![The board a minute into an autopilot session: cards carrying the AUTOPILOT badge running in parallel, one in review, two already landed in Done](assets/autopilot-board.png)
+![The board a minute into an autopilot session: cards carrying the AUTOPILOT badge running in parallel, one in review, two already landed in Done](assets/releases/autopilot-board.png)
 
 ## Cards are specs, not sticky notes
 
@@ -91,7 +91,7 @@ it, how to verify it. The planner writes them that way; the New task modal
 nudges you to. An agent that starts from a card like this doesn't have to
 guess, and a reviewer has something to check against.
 
-![A card's overview tab: repro steps, expected vs actual, and a verification checklist, with the live run's model, elapsed time and cost in the side panel](assets/task-spec.png)
+![A card's overview tab: repro steps, expected vs actual, and a verification checklist, with the live run's model, elapsed time and cost in the side panel](assets/releases/task-spec.png)
 
 ## Everything else on the board
 
@@ -194,7 +194,7 @@ A fresh install opens on a short setup checklist. Only the first step — an
 agent CLI on your `PATH` — gates the board; everything else can wait and
 lives in Settings.
 
-<p align="center"><img src="assets/setup-checklist.png" width="620" alt="The Set up Kino checklist: connect an agent CLI (required), default model, GitHub, house rules, chat personas, skills — each ticking off as it is configured"></p>
+<p align="center"><img src="assets/releases/setup-checklist.png" width="620" alt="The Set up Kino checklist: connect an agent CLI (required), default model, GitHub, house rules, chat personas, skills — each ticking off as it is configured"></p>
 
 Your data is local. There is no account and no server.
 
