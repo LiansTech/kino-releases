@@ -1,0 +1,114 @@
+name: Bug report
+description: Report a problem with Kino.
+title: '[Bug]: '
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Kino. Give your report a clear title above.
+        This report will be public.
+  - type: checkboxes
+    id: pre-submit-checks
+    attributes:
+      label: Pre-submit checks
+      options:
+        - label: I have searched [existing issues](https://github.com/LiansTech/kino-releases/issues) for this problem.
+          required: true
+        - label: I have checked whether a [newer Kino version](https://github.com/LiansTech/kino-releases/releases/latest) is available.
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened, and how does it affect your work?
+    validations:
+      required: true
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Give the steps needed to reproduce the bug. If it happens intermittently, say how often.
+      placeholder: |
+        1. Open Kino and ...
+        2. Click ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or recording
+      description: If helpful, drag and drop screenshots or a recording into this field.
+    validations:
+      required: false
+  - type: dropdown
+    id: operating-system
+    attributes:
+      label: Operating system
+      options:
+        - macOS
+        - Windows
+        - Linux
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: os-version
+    attributes:
+      label: Operating system version
+      placeholder: e.g. macOS 15.5, Windows 11, Ubuntu 24.04
+    validations:
+      required: true
+  - type: input
+    id: kino-version
+    attributes:
+      label: Kino version
+      description: Prefilled when opened from Kino. Otherwise, find it in the account menu or About panel.
+      placeholder: e.g. 1.4.0
+    validations:
+      required: true
+  - type: dropdown
+    id: regression
+    attributes:
+      label: Regression
+      description: Did this work in an earlier Kino version?
+      options:
+        - 'Yes'
+        - 'No'
+        - Unsure
+    validations:
+      required: true
+  - type: input
+    id: previous-working-version
+    attributes:
+      label: Previous working version
+      description: If this is a regression, which version last worked? Leave blank if unknown.
+    validations:
+      required: false
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: Choose the impact on your work.
+      options:
+        - 'Critical: data loss or app unusable'
+        - 'High: a core workflow is blocked'
+        - 'Medium: workflow affected, but a workaround exists'
+        - 'Low: minor or visual issue'
+    validations:
+      required: true
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional information
+      description: Any other context, related issues, or workarounds that could help.
+    validations:
+      required: false
