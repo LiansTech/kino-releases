@@ -17,6 +17,18 @@ body:
           required: true
         - label: I have checked whether a [newer Kino version](https://github.com/LiansTech/kino-releases/releases/latest) is available.
           required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: Choose the impact on your work.
+      options:
+        - 'Critical: data loss or app unusable'
+        - 'High: a core workflow is blocked'
+        - 'Medium: workflow affected, but a workaround exists'
+        - 'Low: minor or visual issue'
+    validations:
+      required: true
   - type: textarea
     id: description
     attributes:
@@ -93,18 +105,6 @@ body:
       description: If this is a regression, which version last worked? Leave blank if unknown.
     validations:
       required: false
-  - type: dropdown
-    id: severity
-    attributes:
-      label: Severity
-      description: Choose the impact on your work.
-      options:
-        - 'Critical: data loss or app unusable'
-        - 'High: a core workflow is blocked'
-        - 'Medium: workflow affected, but a workaround exists'
-        - 'Low: minor or visual issue'
-    validations:
-      required: true
   - type: textarea
     id: additional-information
     attributes:

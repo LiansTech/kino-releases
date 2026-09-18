@@ -15,6 +15,16 @@ body:
       options:
         - label: I have searched [existing requests](https://github.com/LiansTech/kino-releases/issues?q=is%3Aissue%20label%3Aenhancement) for this feature.
           required: true
+  - type: dropdown
+    id: importance
+    attributes:
+      label: How important is this feature?
+      options:
+        - 'Essential: a missing capability blocks my workflow'
+        - 'Useful: it would significantly improve my workflow'
+        - 'Nice to have: a convenience or polish improvement'
+    validations:
+      required: true
   - type: textarea
     id: description
     attributes:
@@ -50,16 +60,6 @@ body:
       placeholder: e.g. 1.4.0
     validations:
       required: false
-  - type: dropdown
-    id: importance
-    attributes:
-      label: How important is this feature?
-      options:
-        - 'Essential: a missing capability blocks my workflow'
-        - 'Useful: it would significantly improve my workflow'
-        - 'Nice to have: a convenience or polish improvement'
-    validations:
-      required: true
   - type: textarea
     id: additional-information
     attributes:
