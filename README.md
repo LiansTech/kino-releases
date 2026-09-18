@@ -234,8 +234,10 @@ backups.**
 
 ## Reporting a problem
 
-Open an issue on this repo. Include your OS and the version from the app's
-**About** panel.
+Choose **Feedback** in Kino's account menu, or open
+[a new issue](https://github.com/LiansTech/kino-releases/issues/new/choose) on this
+repo. Pick **Bug report** or **Feature request** and complete the form. Kino
+prefills its version when you open Feedback from the app.
 
 ## License
 
